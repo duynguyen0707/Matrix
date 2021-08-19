@@ -23,10 +23,17 @@ public class App {
         int sumElemenRowColumninMatrix = sumElemenRowColumninMatrix(a, 2, 2);
         System.out.println("Sum elements at Rown n Column m: " + sumElemenRowColumninMatrix);
 
-        int sumMainEle = sumMaindiagonal(a);
+        int sumMainEle = sumMainDiagonal(a);
         System.out.println("Sum Main diagonal in Matrix: " + sumMainEle);
-        int sumAuxiliaryEle = sumAuxiliarydiagonal(a);
+
+        int sumAuxiliaryEle = sumAuxiliaryDiagonal(a);
         System.out.println("Sum Auxiliary diagonal in Matrix: " + sumAuxiliaryEle);
+
+        int sumElementAboveMainDiagonal = sumElementAboveMainDiagonal(a);
+        System.out.println("Sum Elements above Main diagonal in Matrix: " + sumElementAboveMainDiagonal);
+
+        int sumElementBelowMainDiagonal = sumElementBelowMainDiagonal(a);
+        System.out.println("Sum Elements Below Main diagonal in Matrix: " + sumElementBelowMainDiagonal);
     }
 
     public static int[][] inputMatrix() {
@@ -90,6 +97,7 @@ public class App {
 
         return sum;
     }
+    //
 
     //  Is Matrix is an square matrix?
     public static boolean isSquareMatrix(int[][] a) {
@@ -99,8 +107,9 @@ public class App {
         }
         return false;
     }
-//Main diagonal
-    public static int sumMaindiagonal(int[][] a) {
+
+    //Main diagonal
+    public static int sumMainDiagonal(int[][] a) {
         int sum = 0;
         if (isSquareMatrix(a)) {
             for (int i = 0, r = a.length; i < r; i++) {
@@ -112,32 +121,61 @@ public class App {
                 }
 
             }
-        }
-        else
+        } else
             System.out.println("This is not a square matrix");
         return sum;
     }
+
 //auxiliary diagonal
-public static int sumAuxiliarydiagonal(int[][] a) {
-    int sum = 0;
-    if (isSquareMatrix(a)) {
-        for (int i = 0, r = a.length; i < r; i++) {
-            for (int j = 0, c = a[0].length; j < c; j++) {
-                if (j+i==r-1) {
-                    sum += a[i][j];
+    public static int sumAuxiliaryDiagonal(int[][] a) {
+        int sum = 0;
+        if (isSquareMatrix(a)) {
+            for (int i = 0, r = a.length; i < r; i++) {
+                for (int j = 0, c = a[0].length; j < c; j++) {
+                    if (j + i == r - 1) { // công thức tính đường chéo phụ Ai,n-i
+                        sum += a[i][j];
+                    }
+
+                }
+
+            }
+
+        } else
+            System.out.println("This is not a square matrix");
+        return sum;
+
+    }
+
+    //Nửa trên/dưới đường chéo chính (ma trận vuông)
+
+    public static int sumElementAboveMainDiagonal (int [][]a){
+        int sum = 0;
+        for (int i = 0, r=a.length; i <r ; i++) {
+            for (int j = 0, c=a[0].length; j < c; j++) {
+                if(i<j){
+                    sum+=a[i][j];
                 }
 
             }
 
         }
 
+        return sum;
     }
-    else
-        System.out.println("This is not a square matrix");
-    return sum;
+    public static int sumElementBelowMainDiagonal (int [][]a){
+        int sum = 0;
+        for (int i = 0, r=a.length; i <r ; i++) {
+            for (int j = 0, c=a[0].length; j < c; j++) {
+                if(i>j){
+                    sum+=a[i][j];
+                }
 
-}
+            }
 
+        }
+
+        return sum;
+    }
 
     public static int sumElemement(int[][] a) {
         int sum = 0;
@@ -181,7 +219,6 @@ public static int sumAuxiliarydiagonal(int[][] a) {
         return true;
 
     }
-
 
     //    Cho trước ma trận a kích thước m x n. Ma trận a có phải là ma trận toàn các số nguyên tố hay không?
     public static boolean isContainPrimeNumberOnly(int[][] a) {
